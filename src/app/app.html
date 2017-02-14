@@ -1,0 +1,16 @@
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Accounts</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content style="background-color:#404040;color:white;">
+    <ion-list>
+      <button style="background-color:#404040;color:white;" menuClose ion-item *ngFor="let a of accounts" (click)="openPage(a)">
+        {{a.accountName}}
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
