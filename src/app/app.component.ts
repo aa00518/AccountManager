@@ -1,15 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
-import { Transactions } from '../pages/transactions/transactions';
-//import { EditTransaction } from '../pages/edittransaction/edittransaction';
+import { TransactionsPage } from '../pages/transactions/transactions';
+import { SettingsPage } from '../pages/settings/settings';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any = Transactions;
+  rootPage: any = TransactionsPage;
   //pages: Array<{title: string, component: any}>;
   accounts: Array<{accountName: string}>;
   currentAccount: string;
@@ -48,5 +48,9 @@ export class MyApp {
 
   getCurrentAccount() {
     return this.currentAccount.trim();
+  }
+
+  openSettingsPage() {
+    this.nav.push(SettingsPage);
   }
 }

@@ -2,13 +2,11 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
-  selector: 'page-edittransaction',
-  templateUrl: 'edittransaction.html'
+  selector: 'page-settings',
+  templateUrl: 'settings.html'
 })
-export class EditTransactionPage {
-  selectedItem: any;
+export class SettingsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.selectedItem = navParams.get('item');
   }
 }

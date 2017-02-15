@@ -4,6 +4,15 @@
       <ion-title>Accounts</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-footer>
+    <ion-toolbar color="primary">
+      <ion-buttons end>
+        <button ion-button icon-only menuClose (click)="openSettingsPage()">
+          <ion-icon name="settings"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
   <ion-content style="background-color:#404040;color:white;">
     <ion-list>
       <button style="background-color:#404040;color:white;" menuClose ion-item *ngFor="let a of accounts" (click)="openPage(a.accountName)">

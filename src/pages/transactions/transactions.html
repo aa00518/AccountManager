@@ -19,4 +19,13 @@
       </p>
     </ion-card-content>
   </ion-card>
+  <ion-list>
+    <button style="background-color:#404040;color:white;" ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
+      <ion-icon [name]="item.icon" item-left></ion-icon>
+      {{item.title}}
+      <div class="item-note" item-right>
+        {{item.note}}
+      </div>
+    </button>
+  </ion-list>
 </ion-content>
