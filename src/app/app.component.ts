@@ -10,17 +10,11 @@ import { SettingsPage } from '../pages/settings/settings';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage: any = TransactionsPage;
-  //pages: Array<{title: string, component: any}>;
   accounts: Array<{accountName: string}>;
   currentAccount: string;
 
   constructor(public platform: Platform) {
     this.initializeApp();
-
-    // this.pages = [
-    //   { title: 'Page One', component: Page1 },
-    //   { title: 'Page Two', component: Page2 }
-    // ];
 
     this.accounts = [
       { accountName: 'Checking' },
@@ -37,13 +31,13 @@ export class MyApp {
 
       this.currentAccount = this.getCurrentAccount();
 
-      this.openPage(this.currentAccount);
+      this.openPage(this.currentAccount, true);
     });
   }
 
-  openPage(accountName) {
+  openPage(accountName: string, doAuth: boolean) {
     this.currentAccount = accountName.trim();
-    this.nav.setRoot(this.rootPage, { accountName: this.currentAccount });
+    this.nav.setRoot(this.rootPage, { accountName: this.currentAccount, doAuth: doAuth });
   }
 
   getCurrentAccount() {
@@ -54,3 +48,11 @@ export class MyApp {
     this.nav.push(SettingsPage);
   }
 }
+
+// Array
+// pages: Array<{title: string, component: any}>;
+
+// this.pages = [
+//   { title: 'Page One', component: Page1 },
+//   { title: 'Page Two', component: Page2 }
+// ];
