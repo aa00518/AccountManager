@@ -23,6 +23,9 @@ export class TransactionsPage {
           this.loggedIn = true;
           // Now need to access the app object to turn on accounts list, settings button, etc...
           // If we can successfully do the above, then we need to init app object with that stuff turned off.
+          // Can use two different menus, one for authenticated and one for not
+          // Need to create an Accounts provider bound to the menu list in app.html
+          // And should be able to manipulate that Accounts provider from here and it should automatically update the menu???
         } else {
           this.loggedIn = false;
         }
