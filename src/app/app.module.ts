@@ -5,6 +5,7 @@ import { TransactionsPage } from '../pages/transactions/transactions';
 import { EditTransactionPage } from '../pages/edittransaction/edittransaction';
 import { SettingsPage } from '../pages/settings/settings';
 import { Auth } from '../providers/auth';
+import { Accounts } from '../providers/accounts';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,6 @@ import { Auth } from '../providers/auth';
     EditTransactionPage,
     SettingsPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Auth]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Auth, Accounts]
 })
 export class AppModule {}

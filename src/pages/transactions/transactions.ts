@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { EditTransactionPage } from '../../pages/edittransaction/edittransaction';
 import { Auth } from '../../providers/auth';
+import { Accounts } from '../../providers/accounts';
 
 @Component({
   selector: 'page-transactions',
@@ -14,9 +15,9 @@ export class TransactionsPage {
   loggedIn: boolean = false;
   loader: any;
 
-  constructor(public navCtrl: NavController, public params: NavParams, public auth: Auth, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public params: NavParams, public auth: Auth, public loadingCtrl: LoadingController, public accountsPrvdr: Accounts) {
     this.loggedIn = false;
-    if (params.get("doAuth")) {
+    if (this.params.get("doAuth")) {
       this.presentLoading();
       this.auth.doLogin().then((isLoggedIn) => {
         if(isLoggedIn) {
@@ -26,6 +27,8 @@ export class TransactionsPage {
           // Can use two different menus, one for authenticated and one for not
           // Need to create an Accounts provider bound to the menu list in app.html
           // And should be able to manipulate that Accounts provider from here and it should automatically update the menu???
+          this.accountsPrvdr.getAccounts();
+          this.accountName = this.accountsPrvdr.accounts[0].accountName;
         } else {
           this.loggedIn = false;
         }
@@ -35,7 +38,9 @@ export class TransactionsPage {
       this.loggedIn = true;
     }
 
-    this.accountName = params.get("accountName");
+    if (this.params.get("accountName") != null) {
+      this.accountName = this.params.get("accountName");
+    }
     this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane', 'american-football', 'boat', 'bluetooth', 'build'];
     this.items = [];
     for (let i = 1; i < 11; i++) {
@@ -62,5 +67,9 @@ export class TransactionsPage {
     });
 
     this.loader.present();
+  }
+
+  addAccount() {
+    this.accountsPrvdr.addAccount("Starbucks Gift Card");
   }
 }

@@ -11,8 +11,8 @@ export class Auth {
   doLogin() {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(false);
-      }, 3000);
+        resolve(true);
+      }, 1000);
     });
   }
 }
