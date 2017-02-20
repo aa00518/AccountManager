@@ -24,13 +24,13 @@ export class MyApp {
       Splashscreen.hide();
       //this.currentAccount = this.getCurrentAccount();
       //this.openPage(this.currentAccount, true);
-      this.openPage(null, true);
+      this.openPage(null);
     });
   }
 
-  openPage(accountName: string, doAuth: boolean) {
+  openPage(accountName: string) {
     //this.currentAccount = accountName.trim();
-    this.nav.setRoot(TransactionsPage, { accountName: accountName, doAuth: doAuth });
+    this.nav.setRoot(TransactionsPage, { accountName: accountName });
   }
 
   // getCurrentAccount() {

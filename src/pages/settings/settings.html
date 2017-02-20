@@ -8,5 +8,15 @@
 </ion-header>
 
 <ion-content style="background-color:#404040;color:white;">
-  Settings content goes here...
+  <ion-card *ngIf="auth.loggedIn">
+    <ion-card-header>
+      Logged in as Ricky Bobby
+    </ion-card-header>
+    <ion-card-content>
+      <button ion-button block (click)="doLogout()">Logout</button>
+    </ion-card-content>
+  </ion-card>
+  <ion-item *ngIf="!auth.loggedIn" style="background-color:#404040;color:white;">
+    Not logged in.
+  </ion-item>
 </ion-content>
