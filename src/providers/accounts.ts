@@ -21,5 +21,6 @@ export class Accounts {
   addAccount(accountName: string) {
     let counter: number = this.accounts.length;
     this.accounts.push({ accountName: accountName + ' ' + counter.toString() });
+    return accountName + ' ' + counter.toString();
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { EditTransactionPage } from '../../pages/edittransaction/edittransaction';
 import { Auth } from '../../providers/auth';
 import { Accounts } from '../../providers/accounts';
@@ -14,7 +14,8 @@ export class TransactionsPage {
   accountName: string;
   loader: any;
 
-  constructor(public navCtrl: NavController, public params: NavParams, public auth: Auth, public loadingCtrl: LoadingController, public accountsPrvdr: Accounts) {
+  constructor(public navCtrl: NavController, public params: NavParams, public auth: Auth, public loadingCtrl: LoadingController,
+              public accountsPrvdr: Accounts, public toastCtrl: ToastController) {
     if (!this.auth.loggedIn) {
       this.doLogin();
     }
@@ -25,7 +26,7 @@ export class TransactionsPage {
     
     this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane', 'american-football', 'boat', 'bluetooth', 'build'];
     this.items = [];
-    for (let i = 1; i < 11; i++) {
+    for (let i = 1; i < 16; i++) {
       this.items.push({
         title: 'Item ' + i,
         note: 'This is item #' + i,
@@ -51,8 +52,19 @@ export class TransactionsPage {
     this.loader.present();
   }
 
+  presentToast(messageString: string) {
+    let toast = this.toastCtrl.create({
+      message: 'Added account ' + messageString + '.',
+      position: 'top',
+      duration: 3000
+    });
+    toast.present();
+  }
+
   addAccount() {
-    this.accountsPrvdr.addAccount("Starbucks Gift Card");
+    let newAccountName: string;
+    newAccountName = this.accountsPrvdr.addAccount("Starbucks Gift Card");
+    this.presentToast(newAccountName);
   }
 
   doLogin() {
