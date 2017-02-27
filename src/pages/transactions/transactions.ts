@@ -69,12 +69,17 @@ export class TransactionsPage {
 
   doLogin() {
     this.presentLoading();
-    this.auth.doLogin().then((isLoggedIn) => {
-      if(isLoggedIn) {
-        this.accountsPrvdr.getAccounts();
-        this.accountName = this.accountsPrvdr.accounts[0].accountName;
-      }
+    this.auth.doLogin().then(() => {
+      this.accountsPrvdr.getAccounts();
+      this.accountName = this.accountsPrvdr.accounts[0].accountName;
       this.loader.dismiss();
     });
+    // this.auth.doLogin().then((isLoggedIn) => {
+    //   if(isLoggedIn) {
+    //     this.accountsPrvdr.getAccounts();
+    //     this.accountName = this.accountsPrvdr.accounts[0].accountName;
+    //   }
+    //   this.loader.dismiss();
+    // });
   }
 }
