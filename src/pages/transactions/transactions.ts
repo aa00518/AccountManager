@@ -17,7 +17,7 @@ export class TransactionsPage {
   constructor(public navCtrl: NavController, public params: NavParams, public auth: Auth, public loadingCtrl: LoadingController,
               public accountsPrvdr: Accounts, public toastCtrl: ToastController) {
     if (!this.auth.loggedIn) {
-      this.doLogin();
+      this.doSilentLogin();
     }
 
     if (this.params.get("accountName") != null) {
@@ -48,8 +48,11 @@ export class TransactionsPage {
     this.loader = this.loadingCtrl.create({
       content: "Authenticating..."
     });
-
     this.loader.present();
+  }
+
+  dismissLoading() {
+    this.loader.dismiss().catch(() => {});
   }
 
   presentToast(messageString: string) {
@@ -67,19 +70,27 @@ export class TransactionsPage {
     this.presentToast(newAccountName);
   }
 
+  doSilentLogin() {
+    this.presentLoading();
+    this.auth.af.auth.subscribe(res => {
+      if(res) {
+        this.auth.userProfile = res.auth as any;
+        this.auth.loggedIn = true;
+        this.accountsPrvdr.getAccounts();
+        this.accountName = this.accountsPrvdr.accounts[0].accountName;
+      }
+      else {
+      }
+      this.dismissLoading();
+    });
+  }
+
   doLogin() {
     this.presentLoading();
     this.auth.doLogin().then(() => {
       this.accountsPrvdr.getAccounts();
       this.accountName = this.accountsPrvdr.accounts[0].accountName;
-      this.loader.dismiss();
-    });
-    // this.auth.doLogin().then((isLoggedIn) => {
-    //   if(isLoggedIn) {
-    //     this.accountsPrvdr.getAccounts();
-    //     this.accountName = this.accountsPrvdr.accounts[0].accountName;
-    //   }
-    //   this.loader.dismiss();
-    // });
+      this.dismissLoading();
+    }).catch(error => {});
   }
 }

@@ -13,6 +13,7 @@ export class Auth {
 
   constructor(public http: Http, public af: AngularFire, public platform: Platform) {
     this.loggedIn = false;
+    this.userProfile = null;
   }
 
   doLogin() {
@@ -24,16 +25,16 @@ export class Auth {
     }
   }
 
-  doSilentLogin() {
-    this.af.auth.subscribe(res => {
-      if(res) {
-        this.userProfile = res.auth as any;
-        this.loggedIn = true;
-      }
-      else {
-      }
-    });
-  }
+  // doSilentLogin() {
+  //   this.af.auth.subscribe(res => {
+  //     if(res) {
+  //       this.userProfile = res.auth as any;
+  //       this.loggedIn = true;
+  //     }
+  //     else {
+  //     }
+  //   });
+  // }
 
   googlePlusLogin() {
     return GooglePlus.login({ 'webClientId' : '658095225206-i1amh87tv7mfjunlk4ifqb3ne2dc2mhr.apps.googleusercontent.com' }).then((userData) => {
@@ -58,6 +59,7 @@ export class Auth {
   doLogout() {
     this.af.auth.logout().then(reason => {}).catch(error => {});
     this.loggedIn = false;
+    this.userProfile = null;
   }
 
   // doLogin() {
