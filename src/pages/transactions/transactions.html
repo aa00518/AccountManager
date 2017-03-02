@@ -23,6 +23,15 @@
       {{ auth.userProfile.displayName }}
     </p>
   </ion-item>
+  <ion-list *ngIf="auth.loggedIn" style="background-color:#404040;color:white;">
+    <!-- <ion-item *ngFor="let account of accounts | async"> -->
+    <ion-item *ngFor="let tx of accountsPrvdr.transactions" style="background-color:#404040;color:white;">
+      <span style="font-size:small;">{{ tx.accountName }}</span>
+      <span style="font-size:small;">{{ tx.activity }}</span>
+      <span style="font-size:small;">{{ tx.amount }}</span>
+      <span style="font-size:small;">{{ tx.transactionDate }}</span>
+    </ion-item>
+  </ion-list>
   <ion-list *ngIf="auth.loggedIn">
     <button style="background-color:#404040;color:white;" ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
       <ion-icon [name]="item.icon" item-left></ion-icon>

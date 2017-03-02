@@ -15,8 +15,8 @@
   </ion-footer>
   <ion-content style="background-color:#404040;color:white;">
     <ion-list>
-      <button style="background-color:#404040;color:white;" menuClose ion-item *ngFor="let a of accountsPrvdr.accounts" (click)="openPage(a.accountName)">
-        {{a.accountName}}
+      <button style="background-color:#404040;color:white;" menuClose ion-item *ngFor="let a of accountsPrvdr.accounts" (click)="openPage(a.$key)">
+        {{a.$key}}
       </button>
     </ion-list>
   </ion-content>

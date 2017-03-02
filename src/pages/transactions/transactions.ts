@@ -22,6 +22,8 @@ export class TransactionsPage {
 
     if (this.params.get("accountName") != null) {
       this.accountName = this.params.get("accountName");
+      this.accountsPrvdr.currentAccount = this.accountName;
+      this.accountsPrvdr.getTransactions();
     }
     
     this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane', 'american-football', 'boat', 'bluetooth', 'build'];
@@ -65,9 +67,9 @@ export class TransactionsPage {
   }
 
   addAccount() {
-    let newAccountName: string;
-    newAccountName = this.accountsPrvdr.addAccount("Starbucks Gift Card");
-    this.presentToast(newAccountName);
+    // let newAccountName: string;
+    // newAccountName = this.accountsPrvdr.addAccount("Starbucks Gift Card");
+    // this.presentToast(newAccountName);
   }
 
   doSilentLogin() {
@@ -77,7 +79,8 @@ export class TransactionsPage {
         this.auth.userProfile = res.auth as any;
         this.auth.loggedIn = true;
         this.accountsPrvdr.getAccounts();
-        this.accountName = this.accountsPrvdr.accounts[0].accountName;
+        this.accountsPrvdr.getTransactions();
+        //this.accountName = this.accountsPrvdr.currentAccount;
       }
       else {
       }
@@ -89,7 +92,8 @@ export class TransactionsPage {
     this.presentLoading();
     this.auth.doLogin().then(() => {
       this.accountsPrvdr.getAccounts();
-      this.accountName = this.accountsPrvdr.accounts[0].accountName;
+      this.accountsPrvdr.getTransactions();
+      //this.accountName = this.accountsPrvdr.accounts[0].accountName;
       this.dismissLoading();
     }).catch(error => {});
   }
