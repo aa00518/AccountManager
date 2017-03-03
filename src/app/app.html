@@ -14,6 +14,9 @@
     </ion-toolbar>
   </ion-footer>
   <ion-content style="background-color:#404040;color:white;">
+    <ion-item *ngIf="!accountsPrvdr.accounts" style="background-color:#404040;color:white;">
+      Loading accounts...
+    </ion-item>
     <ion-list>
       <button style="background-color:#404040;color:white;" menuClose ion-item *ngFor="let a of accountsPrvdr.accounts" (click)="openPage(a.$key)">
         {{a.$key}}

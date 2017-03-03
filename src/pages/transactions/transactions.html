@@ -23,6 +23,9 @@
       {{ auth.userProfile.displayName }}
     </p>
   </ion-item>
+  <ion-item *ngIf="auth.loggedIn && !accountsPrvdr.transactions" style="background-color:#404040;color:white;">
+    Loading transactions...
+  </ion-item>
   <ion-list *ngIf="auth.loggedIn" style="background-color:#404040;color:white;">
     <!-- <ion-item *ngFor="let account of accounts | async"> -->
     <ion-item *ngFor="let tx of accountsPrvdr.transactions" style="background-color:#404040;color:white;">
