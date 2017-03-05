@@ -4,6 +4,7 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { TransactionsPage } from '../pages/transactions/transactions';
 import { SettingsPage } from '../pages/settings/settings';
 import { Accounts } from '../providers/accounts';
+import { Auth } from '../providers/auth';
 
 @Component({
   templateUrl: 'app.html'
@@ -13,7 +14,7 @@ export class MyApp {
   rootPage: any;
   //currentAccount: string;
 
-  constructor(public platform: Platform, public accountsPrvdr: Accounts) {
+  constructor(public platform: Platform, public accountsPrvdr: Accounts, public auth: Auth) {
     this.initializeApp();
     //this.currentAccount = this.accounts[0].accountName.trim();
   }

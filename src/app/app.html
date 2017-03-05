@@ -14,7 +14,7 @@
     </ion-toolbar>
   </ion-footer>
   <ion-content style="background-color:#404040;color:white;">
-    <ion-item *ngIf="!accountsPrvdr.accounts" style="background-color:#404040;color:white;">
+    <ion-item *ngIf="auth.loggedIn && !accountsPrvdr.accounts" style="background-color:#404040;color:white;">
       Loading accounts...
     </ion-item>
     <ion-list>

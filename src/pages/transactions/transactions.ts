@@ -95,6 +95,8 @@ export class TransactionsPage {
       this.accountsPrvdr.getTransactions();
       //this.accountName = this.accountsPrvdr.accounts[0].accountName;
       this.dismissLoading();
-    }).catch(error => {});
+    }).catch(error => {
+      this.dismissLoading();
+    });
   }
 }

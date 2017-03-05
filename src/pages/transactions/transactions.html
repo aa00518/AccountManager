@@ -26,14 +26,14 @@
   <ion-item *ngIf="auth.loggedIn && !accountsPrvdr.transactions" style="background-color:#404040;color:white;">
     Loading transactions...
   </ion-item>
-  <ion-list *ngIf="auth.loggedIn" style="background-color:#404040;color:white;">
-    <!-- <ion-item *ngFor="let account of accounts | async"> -->
-    <ion-item *ngFor="let tx of accountsPrvdr.transactions" style="background-color:#404040;color:white;">
-      <span style="font-size:small;">{{ tx.accountName }}</span>
-      <span style="font-size:small;">{{ tx.activity }}</span>
-      <span style="font-size:small;">{{ tx.amount }}</span>
-      <span style="font-size:small;">{{ tx.transactionDate }}</span>
-    </ion-item>
+  <ion-list *ngIf="auth.loggedIn && accountsPrvdr.transactions">
+    <button *ngFor="let tx of accountsPrvdr.transactions" style="background-color:#404040;color:white;" ion-item (click)="itemTapped($event, tx)">
+      <ion-icon name="pricetags" item-left></ion-icon>
+      {{ tx.accountName }}
+      <div style="font-size:smaller;" class="item-note" item-right>
+        {{ tx.activity }} {{ tx.amount }} {{ tx.transactionDate }}
+      </div>
+    </button>
   </ion-list>
   <ion-list *ngIf="auth.loggedIn">
     <button style="background-color:#404040;color:white;" ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
