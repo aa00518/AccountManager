@@ -66,11 +66,11 @@ export class TransactionsPage {
     toast.present();
   }
 
-  addAccount() {
-    // let newAccountName: string;
-    // newAccountName = this.accountsPrvdr.addAccount("Starbucks Gift Card");
-    // this.presentToast(newAccountName);
-  }
+  // addAccount() {
+  //   let newAccountName: string;
+  //   newAccountName = this.accountsPrvdr.addAccount("Starbucks Gift Card");
+  //   this.presentToast(newAccountName);
+  // }
 
   doSilentLogin() {
     this.presentLoading();

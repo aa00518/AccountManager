@@ -4,6 +4,7 @@ import { MyApp } from './app.component';
 import { TransactionsPage } from '../pages/transactions/transactions';
 import { EditTransactionPage } from '../pages/edittransaction/edittransaction';
 import { SettingsPage } from '../pages/settings/settings';
+import { AddAccountPage } from '../pages/addaccount/addaccount';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { Auth } from '../providers/auth';
 import { Accounts } from '../providers/accounts';
@@ -28,7 +29,8 @@ export const firebaseAuthConfig = {
     MyApp,
     TransactionsPage,
     EditTransactionPage,
-    SettingsPage
+    SettingsPage,
+    AddAccountPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -39,7 +41,8 @@ export const firebaseAuthConfig = {
     MyApp,
     TransactionsPage,
     EditTransactionPage,
-    SettingsPage
+    SettingsPage,
+    AddAccountPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Auth, Accounts]
 })

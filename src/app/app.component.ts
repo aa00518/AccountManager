@@ -3,6 +3,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { TransactionsPage } from '../pages/transactions/transactions';
 import { SettingsPage } from '../pages/settings/settings';
+import { AddAccountPage } from '../pages/addaccount/addaccount';
 import { Accounts } from '../providers/accounts';
 import { Auth } from '../providers/auth';
 
@@ -40,6 +41,10 @@ export class MyApp {
 
   openSettingsPage() {
     this.nav.push(SettingsPage);
+  }
+
+  openAddAccountPage() {
+    this.nav.push(AddAccountPage);
   }
 }
 

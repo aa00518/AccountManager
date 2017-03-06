@@ -6,6 +6,9 @@
   </ion-header>
   <ion-footer>
     <ion-toolbar color="primary">
+      <button *ngIf="auth.loggedIn && accountsPrvdr.accounts" ion-button menuClose (click)="openAddAccountPage()" color="dark">
+        Add Account
+      </button>
       <ion-buttons end>
         <button ion-button icon-only menuClose (click)="openSettingsPage()">
           <ion-icon name="settings"></ion-icon>
