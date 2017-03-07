@@ -17,8 +17,7 @@
     </ion-card-content>
   </ion-card>
   <ion-item *ngIf="auth.loggedIn" style="background-color:#404040;color:white;">
-    Account - {{accountName}}
-    <!--<button ion-button item-right (click)="addAccount()">Add Account</button>-->
+    Account - {{accountsPrvdr.currentAccount}}
     <p>
       {{ auth.userProfile.displayName }}
     </p>

@@ -13,31 +13,25 @@ import { Auth } from '../providers/auth';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage: any;
-  //currentAccount: string;
 
   constructor(public platform: Platform, public accountsPrvdr: Accounts, public auth: Auth) {
     this.initializeApp();
-    //this.currentAccount = this.accounts[0].accountName.trim();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
       StatusBar.styleDefault();
       Splashscreen.hide();
-      //this.currentAccount = this.getCurrentAccount();
-      //this.openPage(this.currentAccount, true);
       this.openPage(null);
     });
   }
 
   openPage(accountName: string) {
-    //this.currentAccount = accountName.trim();
+    if (accountName != null) {
+      this.accountsPrvdr.currentAccount = accountName;
+    }
     this.nav.setRoot(TransactionsPage, { accountName: accountName });
   }
-
-  // getCurrentAccount() {
-  //   return this.currentAccount.trim();
-  // }
 
   openSettingsPage() {
     this.nav.push(SettingsPage);
@@ -47,11 +41,3 @@ export class MyApp {
     this.nav.push(AddAccountPage);
   }
 }
-
-// Array
-// pages: Array<{title: string, component: any}>;
-
-// this.pages = [
-//   { title: 'Page One', component: Page1 },
-//   { title: 'Page Two', component: Page2 }
-// ];

@@ -5,7 +5,6 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class Accounts {
-  //accounts: Array<{accountName: string}>;
   accounts: any;
   transactions: any;
   currentAccount: string;
@@ -17,21 +16,9 @@ export class Accounts {
   }
 
   getAccounts() {
-    // this.accounts = [
-    //   { accountName: 'Checking' },
-    //   { accountName: 'Savings' }
-    // ];
-
-    //this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid + '/' + this.currentAccount, {
-      this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid, {
-      // query: {
-      //   orderByChild: 'transactionDate',
-      //   limitToFirst: 10
-      // }
+    this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid, {
     }).subscribe(value => {
-      //this.accounts = value.reverse();
-      this.accounts = value;
-      //this.currentAccount = this.accounts[0].$key;
+        this.accounts = value;
       },
       (error) => {},
       () => {});
@@ -51,8 +38,14 @@ export class Accounts {
   }
 
   addAccount(accountName: string) {
-    // let counter: number = this.accounts.length;
-    // this.accounts.push({ accountName: accountName + ' ' + counter.toString() });
-    // return accountName + ' ' + counter.toString();
+    this.currentAccount = accountName;
+    //this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid).push({ accountName: accountName });
+    this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid + '/' + accountName).push({
+      userID: this.auth.userProfile.uid,
+      accountName: accountName,
+      activity: accountName,
+      amount: 0,
+      transactionDate: Date.now()
+    });
   }
 }
