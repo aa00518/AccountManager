@@ -17,16 +17,13 @@
     </ion-card-content>
   </ion-card>
   <ion-item *ngIf="auth.loggedIn" style="background-color:#404040;color:white;">
-    Account - {{accountsPrvdr.currentAccount}}
-    <p>
-      {{ auth.userProfile.displayName }}
-    </p>
+    Account - {{currentaccountPrvdr.currentAccount}}
   </ion-item>
-  <ion-item *ngIf="auth.loggedIn && !accountsPrvdr.transactions" style="background-color:#404040;color:white;">
+  <ion-item *ngIf="auth.loggedIn && !transactionsPrvdr.transactions" style="background-color:#404040;color:white;">
     Loading transactions...
   </ion-item>
-  <ion-list *ngIf="auth.loggedIn && accountsPrvdr.transactions">
-    <button *ngFor="let tx of accountsPrvdr.transactions" style="background-color:#404040;color:white;" ion-item (click)="itemTapped($event, tx)">
+  <ion-list *ngIf="auth.loggedIn && transactionsPrvdr.transactions">
+    <button *ngFor="let tx of transactionsPrvdr.transactions" style="background-color:#404040;color:white;" ion-item (click)="itemTapped($event, tx)">
       <ion-icon name="pricetags" item-left></ion-icon>
       {{ tx.accountName }}
       <div style="font-size:smaller;" class="item-note" item-right>

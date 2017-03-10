@@ -13,10 +13,9 @@
       Add Account
     </ion-card-header>
     <ion-card-content>
-      <p>
-        <ion-label floating>Account</ion-label>
-        <ion-input #txtAccount [(ngModel)]="account" type="text"></ion-input>
-      </p>
+      <ion-item>
+        <ion-input #txtAccount [(ngModel)]="account" type="text" placeholder="Account Name"></ion-input>
+      </ion-item>
       <p>
         <button ion-button block (click)="addAccount()">Add Account</button>
       </p>

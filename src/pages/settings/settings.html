@@ -10,7 +10,7 @@
 <ion-content style="background-color:#404040;color:white;">
   <ion-card *ngIf="auth.loggedIn">
     <ion-card-header>
-      Logged in as Ricky Bobby
+      Logged in as {{ auth.userProfile.displayName }}
     </ion-card-header>
     <ion-card-content>
       <button ion-button block (click)="doLogout()">Logout</button>

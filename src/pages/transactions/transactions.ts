@@ -3,6 +3,8 @@ import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { EditTransactionPage } from '../../pages/edittransaction/edittransaction';
 import { Auth } from '../../providers/auth';
 import { Accounts } from '../../providers/accounts';
+import { Transactions } from '../../providers/transactions';
+import { CurrentAccount } from '../../providers/currentaccount';
 
 @Component({
   selector: 'page-transactions',
@@ -14,13 +16,13 @@ export class TransactionsPage {
   loader: any;
 
   constructor(public navCtrl: NavController, public params: NavParams, public auth: Auth, public loadingCtrl: LoadingController,
-              public accountsPrvdr: Accounts) {
+              public accountsPrvdr: Accounts, public transactionsPrvdr: Transactions, public currentaccountPrvdr: CurrentAccount) {
     if (!this.auth.loggedIn) {
       this.doSilentLogin();
     }
 
     if (this.params.get("accountName") != null) {
-      this.accountsPrvdr.getTransactions();
+      this.transactionsPrvdr.getTransactions(this.currentaccountPrvdr.getCurrentAccount());
     }
     
     this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane', 'american-football', 'boat', 'bluetooth', 'build'];
@@ -32,9 +34,6 @@ export class TransactionsPage {
         icon: this.icons[Math.floor(Math.random() * this.icons.length)]
       });
     }
-  }
-
-  onViewWillEnter() {
   }
 
   itemTapped(event, item) {
@@ -61,7 +60,7 @@ export class TransactionsPage {
         this.auth.userProfile = res.auth as any;
         this.auth.loggedIn = true;
         this.accountsPrvdr.getAccounts();
-        this.accountsPrvdr.getTransactions();
+        this.transactionsPrvdr.getTransactions(this.currentaccountPrvdr.getCurrentAccount());
       }
       else {
       }
@@ -73,7 +72,7 @@ export class TransactionsPage {
     this.presentLoading();
     this.auth.doLogin().then(() => {
       this.accountsPrvdr.getAccounts();
-      this.accountsPrvdr.getTransactions();
+      this.transactionsPrvdr.getTransactions(this.currentaccountPrvdr.getCurrentAccount());
       this.dismissLoading();
     }).catch(error => {
       this.dismissLoading();

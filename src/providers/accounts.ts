@@ -6,13 +6,9 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class Accounts {
   accounts: any;
-  transactions: any;
-  currentAccount: string;
 
   constructor(public http: Http, public auth: Auth) {
     this.accounts = null;
-    this.transactions = null;
-    this.currentAccount = 'Checking';
   }
 
   getAccounts() {
@@ -24,21 +20,7 @@ export class Accounts {
       () => {});
   }
 
-  getTransactions() {
-    this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid + '/' + this.currentAccount, {
-      query: {
-        orderByChild: 'transactionDate',
-        limitToFirst: 10
-      }
-    }).subscribe(value => {
-        this.transactions = value.reverse();
-      },
-      (error) => {},
-      () => {});
-  }
-
   addAccount(accountName: string) {
-    this.currentAccount = accountName;
     //this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid).push({ accountName: accountName });
     this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid + '/' + accountName).push({
       userID: this.auth.userProfile.uid,

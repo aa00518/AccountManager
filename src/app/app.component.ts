@@ -5,6 +5,7 @@ import { TransactionsPage } from '../pages/transactions/transactions';
 import { SettingsPage } from '../pages/settings/settings';
 import { AddAccountPage } from '../pages/addaccount/addaccount';
 import { Accounts } from '../providers/accounts';
+import { CurrentAccount } from '../providers/currentaccount';
 import { Auth } from '../providers/auth';
 
 @Component({
@@ -14,7 +15,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage: any;
 
-  constructor(public platform: Platform, public accountsPrvdr: Accounts, public auth: Auth) {
+  constructor(public platform: Platform, public accountsPrvdr: Accounts, public auth: Auth, public currentaccountPrvdr: CurrentAccount) {
     this.initializeApp();
   }
 
@@ -28,7 +29,7 @@ export class MyApp {
 
   openPage(accountName: string) {
     if (accountName != null) {
-      this.accountsPrvdr.currentAccount = accountName;
+      this.currentaccountPrvdr.setCurrentAccount(accountName);
     }
     this.nav.setRoot(TransactionsPage, { accountName: accountName });
   }
