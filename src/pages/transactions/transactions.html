@@ -18,6 +18,7 @@
   </ion-card>
   <ion-item *ngIf="auth.loggedIn" style="background-color:#404040;color:white;">
     Account - {{currentaccountPrvdr.currentAccount}}
+    <button ion-button item-right (click)="deleteAccount()">Delete Account</button>
   </ion-item>
   <ion-item *ngIf="auth.loggedIn && !transactionsPrvdr.transactions" style="background-color:#404040;color:white;">
     Loading transactions...

@@ -12,8 +12,12 @@ export class Accounts {
   }
 
   getAccounts() {
-    this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid, {
+    this.auth.af.database.list('/Accounts/' + this.auth.userProfile.uid, {
+      query: {
+        orderByChild: 'addedDate'
+      }
     }).subscribe(value => {
+        //this.accounts = value.reverse();
         this.accounts = value;
       },
       (error) => {},
@@ -21,13 +25,17 @@ export class Accounts {
   }
 
   addAccount(accountName: string) {
-    //this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid).push({ accountName: accountName });
-    this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid + '/' + accountName).push({
-      userID: this.auth.userProfile.uid,
+    this.auth.af.database.list('/Accounts/' + this.auth.userProfile.uid).push({
+      //userID: this.auth.userProfile.uid,
       accountName: accountName,
-      activity: accountName,
-      amount: 0,
-      transactionDate: Date.now()
+      //activity: accountName,
+      //amount: 0,
+      addedDate: Date.now()
     });
+  }
+
+  deleteAccount(accountName: string) {
+    const accountsList = this.auth.af.database.list('/Accounts/' + this.auth.userProfile.uid);
+    accountsList.remove('SOME_KEY');
   }
 }

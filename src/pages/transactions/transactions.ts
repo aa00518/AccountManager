@@ -36,6 +36,10 @@ export class TransactionsPage {
     }
   }
 
+  deleteAccount() {
+    this.accountsPrvdr.deleteAccount(this.currentaccountPrvdr.getCurrentAccount());
+  }
+
   itemTapped(event, item) {
     this.navCtrl.push(EditTransactionPage, {
       item: item
