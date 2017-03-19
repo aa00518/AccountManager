@@ -21,7 +21,7 @@
       Loading accounts...
     </ion-item>
     <ion-list>
-      <button style="background-color:#404040;color:white;" menuClose ion-item *ngFor="let a of accountsPrvdr.accounts" (click)="openPage(a.accountName)">
+      <button style="background-color:#404040;color:white;" menuClose ion-item *ngFor="let a of accountsPrvdr.accounts" (click)="openPage(a)">
         {{a.accountName}}
       </button>
     </ion-list>

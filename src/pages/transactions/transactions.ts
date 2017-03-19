@@ -4,7 +4,6 @@ import { EditTransactionPage } from '../../pages/edittransaction/edittransaction
 import { Auth } from '../../providers/auth';
 import { Accounts } from '../../providers/accounts';
 import { Transactions } from '../../providers/transactions';
-import { CurrentAccount } from '../../providers/currentaccount';
 
 @Component({
   selector: 'page-transactions',
@@ -16,13 +15,13 @@ export class TransactionsPage {
   loader: any;
 
   constructor(public navCtrl: NavController, public params: NavParams, public auth: Auth, public loadingCtrl: LoadingController,
-              public accountsPrvdr: Accounts, public transactionsPrvdr: Transactions, public currentaccountPrvdr: CurrentAccount) {
+              public accountsPrvdr: Accounts, public transactionsPrvdr: Transactions) {
     if (!this.auth.loggedIn) {
       this.doSilentLogin();
     }
 
-    if (this.params.get("accountName") != null) {
-      this.transactionsPrvdr.getTransactions(this.currentaccountPrvdr.getCurrentAccount());
+    if (this.params.get("account") != null) {
+      this.transactionsPrvdr.getTransactions(this.accountsPrvdr.getCurrentAccount());
     }
     
     this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane', 'american-football', 'boat', 'bluetooth', 'build'];

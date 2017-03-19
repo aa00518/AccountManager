@@ -9,7 +9,6 @@ import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { Auth } from '../providers/auth';
 import { Accounts } from '../providers/accounts';
 import { Transactions } from '../providers/transactions';
-import { CurrentAccount } from '../providers/currentaccount';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyC18FXK353nkslSfU2fkMp2_XKIGQ1APsQ",
@@ -46,6 +45,6 @@ export const firebaseAuthConfig = {
     SettingsPage,
     AddAccountPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Auth, Accounts, Transactions, CurrentAccount]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Auth, Accounts, Transactions]
 })
 export class AppModule {}
