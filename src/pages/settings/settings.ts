@@ -3,23 +3,21 @@ import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { Accounts } from '../../providers/accounts';
 import { Transactions } from '../../providers/transactions';
-import { CurrentAccount } from '../../providers/currentaccount';
 
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html'
 })
 export class SettingsPage {
-
   constructor(public navCtrl: NavController, public navParams: NavParams, public auth: Auth, public accountsPrvdr: Accounts, public toastCtrl: ToastController,
-              public transactionsPrvdr: Transactions, public currentaccountPrvdr: CurrentAccount) {
+              public transactionsPrvdr: Transactions) {
   }
 
   doLogout() {
     this.auth.doLogout();
     this.accountsPrvdr.accounts = null;
+    this.accountsPrvdr.currentAccount = null;
     this.transactionsPrvdr.transactions = null;
-    this.currentaccountPrvdr.currentAccount = null;
     this.presentToast();
     this.navCtrl.pop();
   }

@@ -21,7 +21,7 @@ export class TransactionsPage {
     }
 
     if (this.params.get("account") != null) {
-      this.transactionsPrvdr.getTransactions(this.accountsPrvdr.getCurrentAccount());
+      this.transactionsPrvdr.getTransactions("Checking");
     }
     
     this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane', 'american-football', 'boat', 'bluetooth', 'build'];
@@ -36,7 +36,7 @@ export class TransactionsPage {
   }
 
   deleteAccount() {
-    this.accountsPrvdr.deleteAccount(this.currentaccountPrvdr.getCurrentAccount());
+    this.accountsPrvdr.deleteAccount(this.accountsPrvdr.currentAccount.currentAccountKey);
   }
 
   itemTapped(event, item) {
@@ -63,7 +63,7 @@ export class TransactionsPage {
         this.auth.userProfile = res.auth as any;
         this.auth.loggedIn = true;
         this.accountsPrvdr.getAccounts();
-        this.transactionsPrvdr.getTransactions(this.currentaccountPrvdr.getCurrentAccount());
+        this.transactionsPrvdr.getTransactions("Checking");
       }
       else {
       }
@@ -75,7 +75,7 @@ export class TransactionsPage {
     this.presentLoading();
     this.auth.doLogin().then(() => {
       this.accountsPrvdr.getAccounts();
-      this.transactionsPrvdr.getTransactions(this.currentaccountPrvdr.getCurrentAccount());
+      this.transactionsPrvdr.getTransactions("Checking");
       this.dismissLoading();
     }).catch(error => {
       this.dismissLoading();
