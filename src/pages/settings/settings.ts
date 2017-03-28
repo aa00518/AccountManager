@@ -16,7 +16,7 @@ export class SettingsPage {
   doLogout() {
     this.auth.doLogout();
     this.accountsPrvdr.accounts = null;
-    this.accountsPrvdr.currentAccount = null;
+    this.accountsPrvdr.currentAccountKey = null;
     this.transactionsPrvdr.transactions = null;
     this.presentToast();
     this.navCtrl.pop();

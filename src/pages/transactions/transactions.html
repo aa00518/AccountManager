@@ -16,8 +16,8 @@
       <button ion-button (click)="doLogin()">Login</button>
     </ion-card-content>
   </ion-card>
-  <ion-item *ngIf="auth.loggedIn && accountsPrvdr.currentAccount" style="background-color:#404040;color:white;">
-    Account - {{accountsPrvdr.currentAccount.currentAccountKey}}
+  <ion-item *ngIf="auth.loggedIn && accountsPrvdr.accounts && accountsPrvdr.getCurrentAccount()" style="background-color:#404040;color:white;">
+    Account - {{ accountsPrvdr.getCurrentAccount().accountName }}
     <button ion-button item-right (click)="deleteAccount()">Delete Account</button>
   </ion-item>
   <ion-item *ngIf="auth.loggedIn && !transactionsPrvdr.transactions" style="background-color:#404040;color:white;">
@@ -26,7 +26,7 @@
   <ion-list *ngIf="auth.loggedIn && transactionsPrvdr.transactions">
     <button *ngFor="let tx of transactionsPrvdr.transactions" style="background-color:#404040;color:white;" ion-item (click)="itemTapped($event, tx)">
       <ion-icon name="pricetags" item-left></ion-icon>
-      {{ tx.accountName }}
+      {{ tx.currentAccountKey }}
       <div style="font-size:smaller;" class="item-note" item-right>
         {{ tx.activity }} {{ tx.amount }} {{ tx.transactionDate }}
       </div>
@@ -35,9 +35,9 @@
   <ion-list *ngIf="auth.loggedIn">
     <button style="background-color:#404040;color:white;" ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
       <ion-icon [name]="item.icon" item-left></ion-icon>
-      {{item.title}}
+      {{ item.title }}
       <div class="item-note" item-right>
-        {{item.note}}
+        {{ item.note }}
       </div>
     </button>
   </ion-list>

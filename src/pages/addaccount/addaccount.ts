@@ -51,7 +51,7 @@ export class AddAccountPage {
 
     this.accountsPrvdr.addAccount(this.account.trim());
     this.presentToast("Account " + this.account.trim() + " added.");
-    this.transactionsPrvdr.getTransactions("Checking");
+    this.transactionsPrvdr.getTransactions(this.accountsPrvdr.currentAccountKey);
 
     this.account = null;
     this.navCtrl.pop();

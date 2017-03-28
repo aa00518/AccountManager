@@ -9,28 +9,24 @@ type account = {
   addedDate: string;
 }
 
-type currentAccount = {
-  $key: string;
-  currentAccountKey: string;
-}
+// type currentAccountKey = {
+//   $key: string;
+//   currentAccountKey: string;
+// }
 
 @Injectable()
 export class Accounts {
   accounts: account[];
-  currentAccount: currentAccount;
+  currentAccountKey: string;
 
   constructor(public http: Http, public auth: Auth) {
     this.accounts = null;
-    this.currentAccount = null;
+    this.currentAccountKey = null;
   }
 
   getAccounts() {
-    this.auth.af.database.list('/CurrentAccount/' + this.auth.userProfile.uid).subscribe(value => {
-      this.currentAccount = value[0] as currentAccount;
-      if (this.currentAccount == null)
-      {
-        this.addInitCurrentAccount("start");
-      }
+    this.auth.af.database.object('/CurrentAccount/' + this.auth.userProfile.uid).subscribe(value => {
+      this.currentAccountKey = value.currentAccountKey;
     },
     (error) => {},
     () => {});
@@ -42,57 +38,59 @@ export class Accounts {
     }).subscribe(value => {
         this.accounts = value as account[];
         if (this.accounts.length == 0) {
-          this.addAccount("Checking");
-          this.addInitAccount("Savings");
+          this.initDB();
         }
       },
       (error) => {},
       () => {});
   }
 
-  addInitCurrentAccount($currentAccountKey: string) {
-    this.auth.af.database.list('/CurrentAccount/' + this.auth.userProfile.uid).push({
-      currentAccountKey: $currentAccountKey
+  initCurrentAccount(currentAccountKey: string) {
+    this.auth.af.database.object('/CurrentAccount/' + this.auth.userProfile.uid).set({
+      currentAccountKey: currentAccountKey
     });
   }
 
-  addInitAccount(accountName: string) {
+  setCurrentAccount(account: account) {
+    const currentAccountObject = this.auth.af.database.object('/CurrentAccount/' + this.auth.userProfile.uid);
+    currentAccountObject.update({ currentAccountKey: account.$key });
+  }
+
+  getCurrentAccount() {
+    return this.accounts.find(item => item.$key == this.currentAccountKey);
+  }
+
+  initDB() {
     this.auth.af.database.list('/Accounts/' + this.auth.userProfile.uid).push({
-      accountName: accountName,
+      accountName: "Checking",
       addedDate: Date.now()
+    }).then(() => {
+      this.initCurrentAccount(this.accounts[0].$key);
+    }).then(() => {
+      this.auth.af.database.list('/Accounts/' + this.auth.userProfile.uid).push({
+        accountName: "Savings",
+        addedDate: Date.now()
+      });
     });
-  }  
+  }
 
   addAccount(accountName: string) {
     this.auth.af.database.list('/Accounts/' + this.auth.userProfile.uid).push({
       accountName: accountName,
       addedDate: Date.now()
+    }).then(() => {
+      this.setCurrentAccount(this.accounts[this.accounts.length - 1]);
     });
-    this.setCurrentAccount(this.accounts[this.accounts.length - 1]);
   }
 
   deleteAccount($key: string) {
     const accountsList = this.auth.af.database.list('/Accounts/' + this.auth.userProfile.uid);
-    accountsList.remove($key);
-    this.setCurrentAccount(this.accounts[0]);
+    accountsList.remove($key).then(() => {
+      this.setCurrentAccount(this.accounts[0]);
+    });
   }
 
-  setCurrentAccount(account: account) {
-    const currentAccountList = this.auth.af.database.list('/CurrentAccount/' + this.auth.userProfile.uid);
-    currentAccountList.update(this.currentAccount.$key, { currentAccountKey: account.$key });
+  updateAccount() {
+    // Need to implement
   }
-
-  // getCurrentAccount() {
-  //   this.auth.af.database.list('/CurrentAccount/' + this.auth.userProfile.uid).subscribe(value => {
-  //     this.currentAccount = value[0] as currentAccount;
-  //   });
-    
-  //   if (this.currentAccount == null) {
-  //     this.auth.af.database.list('/CurrentAccount/' + this.auth.userProfile.uid).push({
-  //       currentAccountKey: this.accounts[0].key
-  //     });
-  //   }
-
-  //   return this.currentAccount;
-  // }
 }

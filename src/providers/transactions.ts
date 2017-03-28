@@ -11,11 +11,10 @@ export class Transactions {
     this.transactions = null;
   }
 
-  getTransactions(currentAccount: string) {
-    this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid + '/' + currentAccount, {
+  getTransactions(currentAccountKey: string) {
+    this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid + '/' + currentAccountKey, {
       query: {
-        orderByChild: 'transactionDate'//,
-        //limitToFirst: 10
+        orderByChild: 'transactionDate'
       }
     }).subscribe(value => {
         this.transactions = value.reverse();
@@ -24,12 +23,11 @@ export class Transactions {
       () => {});
   }
 
-  addTransaction(accountName: string) {
-    //this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid).push({ accountName: accountName });
-    this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid + '/' + accountName).push({
+  addTransaction(currentAccountKey: string) {
+    this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid + '/' + currentAccountKey).push({
       userID: this.auth.userProfile.uid,
-      accountName: accountName,
-      activity: accountName,
+      currentAccountKey: currentAccountKey,
+      activity: currentAccountKey,
       amount: 0,
       transactionDate: Date.now()
     });
