@@ -83,9 +83,9 @@ export class Accounts {
     });
   }
 
-  deleteAccount($key: string) {
+  deleteAccount() {
     const accountsList = this.auth.af.database.list('/Accounts/' + this.auth.userProfile.uid);
-    accountsList.remove($key).then(() => {
+    accountsList.remove(this.currentAccountKey).then(() => {
       this.setCurrentAccount(this.accounts[0]);
     });
   }

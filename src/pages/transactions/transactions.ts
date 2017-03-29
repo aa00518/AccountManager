@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, PopoverController } from 'ionic-angular';
 import { EditTransactionPage } from '../../pages/edittransaction/edittransaction';
+import { TransactionsPopoverMenuPage } from '../../pages/transactions-popover-menu-page/transactions-popover-menu-page';
 import { Auth } from '../../providers/auth';
 import { Accounts } from '../../providers/accounts';
 import { Transactions } from '../../providers/transactions';
@@ -15,7 +16,7 @@ export class TransactionsPage {
   loader: any;
 
   constructor(public navCtrl: NavController, public params: NavParams, public auth: Auth, public loadingCtrl: LoadingController,
-              public accountsPrvdr: Accounts, public transactionsPrvdr: Transactions) {
+              public accountsPrvdr: Accounts, public transactionsPrvdr: Transactions, public popoverCtrl: PopoverController) {
     if (!this.auth.loggedIn) {
       this.doSilentLogin();
     }
@@ -35,9 +36,16 @@ export class TransactionsPage {
     }
   }
 
-  deleteAccount() {
-    this.accountsPrvdr.deleteAccount(this.accountsPrvdr.currentAccountKey);
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(TransactionsPopoverMenuPage);
+    popover.present({
+      ev: myEvent
+    });
   }
+
+  // deleteAccount() {
+  //   this.accountsPrvdr.deleteAccount();
+  // }
 
   itemTapped(event, item) {
     this.navCtrl.push(EditTransactionPage, {
