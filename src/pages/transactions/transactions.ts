@@ -43,14 +43,8 @@ export class TransactionsPage {
     });
   }
 
-  // deleteAccount() {
-  //   this.accountsPrvdr.deleteAccount();
-  // }
-
   itemTapped(event, item) {
-    this.navCtrl.push(EditTransactionPage, {
-      item: item
-    });
+    this.navCtrl.push(EditTransactionPage, { item: item });
   }
 
   presentLoading() {

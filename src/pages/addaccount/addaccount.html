@@ -3,21 +3,21 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Add Account</ion-title>
+    <ion-title>{{ pageUsage }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content style="background-color:#404040;color:white;">
   <ion-card>
     <ion-card-header>
-      Add Account
+      {{ pageUsage }}
     </ion-card-header>
     <ion-card-content>
       <ion-item>
         <ion-input #txtAccount [(ngModel)]="account" type="text" placeholder="Account Name"></ion-input>
       </ion-item>
       <p>
-        <button ion-button block (click)="addAccount()">Add Account</button>
+        <button ion-button block (click)="addAccount()">{{ pageUsage }}</button>
       </p>
     </ion-card-content>
   </ion-card>

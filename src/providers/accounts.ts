@@ -90,7 +90,8 @@ export class Accounts {
     });
   }
 
-  updateAccount() {
-    // Need to implement
+  updateAccount(accountName: string) {
+    const accountsList = this.auth.af.database.list('/Accounts/' + this.auth.userProfile.uid);
+    accountsList.update(this.currentAccountKey, { accountName: accountName });
   }
 }

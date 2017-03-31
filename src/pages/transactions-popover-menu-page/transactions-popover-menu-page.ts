@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { ViewController, AlertController, ToastController } from 'ionic-angular';
+import { ViewController, AlertController, ToastController, App } from 'ionic-angular';
+import { AddAccountPage } from '../addaccount/addaccount';
 import { Accounts } from '../../providers/accounts';
 
 @Component({
   template: `
     <ion-list>
       <button ion-item (click)="close()">Delete Cleared</button>
-      <button ion-item (click)="close()">Change Account Name</button>
+      <button ion-item (click)="changeAccountName()">Change Account Name</button>
       <button ion-item (click)="close()">Delete All Transactions</button>
       <button *ngIf="accountsPrvdr.accounts.length > 1" ion-item (click)="deleteAccount()">Delete Account</button>
     </ion-list>
@@ -15,11 +16,17 @@ import { Accounts } from '../../providers/accounts';
 export class TransactionsPopoverMenuPage {
   accountName: string;
 
-  constructor(public viewCtrl: ViewController, public accountsPrvdr: Accounts, public alertCtrl: AlertController, public toastCtrl: ToastController) {
+  constructor(public viewCtrl: ViewController, public accountsPrvdr: Accounts, public alertCtrl: AlertController, public toastCtrl: ToastController,
+              public appCtrl: App) {
     this.accountName = this.accountsPrvdr.getCurrentAccount().accountName;
   }
 
   close() {
+    this.viewCtrl.dismiss();
+  }
+
+  changeAccountName() {
+    this.appCtrl.getRootNav().push(AddAccountPage, { pageType: 'update' });
     this.viewCtrl.dismiss();
   }
 

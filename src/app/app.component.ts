@@ -38,6 +38,6 @@ export class MyApp {
   }
 
   openAddAccountPage() {
-    this.nav.push(AddAccountPage);
+    this.nav.push(AddAccountPage, { pageType: 'add' });
   }
 }
