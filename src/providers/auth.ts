@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Platform } from 'ionic-angular';
 import { AngularFire, FirebaseAuthState, AuthProviders } from 'angularfire2';
-import { GooglePlus } from 'ionic-native';
+import { GooglePlus } from '@ionic-native/google-plus';
 import firebase from 'firebase';
 import 'rxjs/add/operator/map';
 
@@ -11,7 +11,7 @@ export class Auth {
   loggedIn: boolean;
   userProfile: FirebaseAuthState = null;
 
-  constructor(public http: Http, public af: AngularFire, public platform: Platform) {
+  constructor(public http: Http, public af: AngularFire, public platform: Platform, private googlePlus: GooglePlus) {
     this.loggedIn = false;
     this.userProfile = null;
   }
@@ -37,7 +37,7 @@ export class Auth {
   // }
 
   googlePlusLogin() {
-    return GooglePlus.login({ 'webClientId' : '658095225206-i1amh87tv7mfjunlk4ifqb3ne2dc2mhr.apps.googleusercontent.com' }).then((userData) => {
+    return this.googlePlus.login({ 'webClientId' : '658095225206-i1amh87tv7mfjunlk4ifqb3ne2dc2mhr.apps.googleusercontent.com' }).then((userData) => {
       var provider = firebase.auth.GoogleAuthProvider.credential(userData.idToken);
       firebase.auth().signInWithCredential(provider).then((success) => {
         this.userProfile = success;
