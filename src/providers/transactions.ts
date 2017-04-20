@@ -12,15 +12,16 @@ export class Transactions {
   }
 
   getTransactions(currentAccountKey: string) {
-    this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid + '/' + currentAccountKey, {
-      query: {
-        orderByChild: 'transactionDate'
-      }
-    }).subscribe(value => {
-        this.transactions = value.reverse();
-      },
-      (error) => {},
-      () => {});
+    this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid + '/' + currentAccountKey//, {
+      // query: {
+      //   orderByChild: 'transactionDate'
+      // }
+    //}
+    ).subscribe(value => {
+      this.transactions = value.sort((t1, t2) => t2.transactionDate - t1.transactionDate);
+    },
+    (error) => {},
+    () => {});
   }
 
   addTransaction(currentAccountKey: string, activity: string) {
@@ -33,3 +34,17 @@ export class Transactions {
     });
   }
 }
+
+/*
+    }).map((items) => {
+      return items.map(item => {
+        console.log(item);
+      })
+      //return items.reverse();
+    }).subscribe(value => {
+      console.log(value);
+      this.transactions = value.reverse();
+    },
+    (error) => {},
+    () => {});
+*/
