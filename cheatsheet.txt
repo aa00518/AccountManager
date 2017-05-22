@@ -1,6 +1,8 @@
 ionic serve -w chrome --lab
 
-cordova run android --release
+ionic cordova run android --prod
+
+//ionic cordova run android --release
 
 //ionic build android
 //ionic run android --prod

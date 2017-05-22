@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import { Platform } from 'ionic-angular';
-import { AngularFire, FirebaseAuthState, AuthProviders } from 'angularfire2';
+import { AngularFire } from 'angularfire2';
 import { GooglePlus } from '@ionic-native/google-plus';
 import firebase from 'firebase';
 import 'rxjs/add/operator/map';
@@ -9,11 +10,11 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class Auth {
   loggedIn: boolean;
-  userProfile: FirebaseAuthState = null;
+  userProfile: Observable<firebase.User>;//FirebaseAuthState = null;
 
   constructor(public http: Http, public af: AngularFire, public platform: Platform, private googlePlus: GooglePlus) {
     this.loggedIn = false;
-    this.userProfile = null;
+    this.userProfile = af.auth.authState;
   }
 
   doLogin() {
@@ -24,17 +25,6 @@ export class Auth {
       return this.fireBaseLogin();
     }
   }
-
-  // doSilentLogin() {
-  //   this.af.auth.subscribe(res => {
-  //     if(res) {
-  //       this.userProfile = res.auth as any;
-  //       this.loggedIn = true;
-  //     }
-  //     else {
-  //     }
-  //   });
-  // }
 
   googlePlusLogin() {
     return this.googlePlus.login({ 'webClientId' : '658095225206-i1amh87tv7mfjunlk4ifqb3ne2dc2mhr.apps.googleusercontent.com' }).then((userData) => {
@@ -49,7 +39,7 @@ export class Auth {
   }
 
   fireBaseLogin() {
-    return this.af.auth.login({ provider: AuthProviders.Google }).then(a => {
+    return this.af.auth.login(new firebase.auth.GoogleAuthProvider()).then(a => {
       this.userProfile = a.auth as any;
       this.loggedIn = true;
     }).catch(error => {
@@ -61,17 +51,4 @@ export class Auth {
     this.loggedIn = false;
     this.userProfile = null;
   }
-
-  // doLogin() {
-  //   return new Promise((resolve) => {
-  //     setTimeout(() => {
-  //       this.loggedIn = true;
-  //       resolve(this.loggedIn);
-  //     }, 1000);
-  //   });
-  // }
-
-  // doLogout() {
-  //   this.loggedIn = false;
-  // }
 }
