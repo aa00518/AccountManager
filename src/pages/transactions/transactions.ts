@@ -63,18 +63,18 @@ export class TransactionsPage {
   }
 
   doSilentLogin() {
-    this.presentLoading();
-    this.auth.af.auth.subscribe(res => {
-      if(res) {
-        this.auth.userProfile = res.auth as any;
-        this.auth.loggedIn = true;
-        this.accountsPrvdr.getAccounts();
-        //this.transactionsPrvdr.getTransactions(this.accountsPrvdr.currentAccountKey);
-      }
-      else {
-      }
-      this.dismissLoading();
-    });
+    // this.presentLoading();
+    // this.auth.af.auth.subscribe(res => {
+    //   if(res) {
+    //     this.auth.userProfile = res.auth as any;
+    //     this.auth.loggedIn = true;
+    //     this.accountsPrvdr.getAccounts();
+    //     //this.transactionsPrvdr.getTransactions(this.accountsPrvdr.currentAccountKey);
+    //   }
+    //   else {
+    //   }
+    //   this.dismissLoading();
+    // });
   }
 
   doLogin() {

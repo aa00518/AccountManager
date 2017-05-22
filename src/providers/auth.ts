@@ -2,19 +2,28 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import { Platform } from 'ionic-angular';
-import { AngularFire } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { GooglePlus } from '@ionic-native/google-plus';
-import firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import 'rxjs/add/operator/map';
+
+// https://github.com/angular/angularfire2/blob/master/docs/5-user-authentication.md
 
 @Injectable()
 export class Auth {
   loggedIn: boolean;
-  userProfile: Observable<firebase.User>;//FirebaseAuthState = null;
+  userProfile: Observable<firebase.User>;
 
-  constructor(public http: Http, public af: AngularFire, public platform: Platform, private googlePlus: GooglePlus) {
+  constructor(public http: Http, public af: AngularFireAuth, public platform: Platform, private googlePlus: GooglePlus) {
     this.loggedIn = false;
-    this.userProfile = af.auth.authState;
+    this.userProfile = af.authState;
+    // afAuth.authState.subscribe((user: firebase.User) => {
+    //   if (!user) {
+    //     this.displayName = null;
+    //     return;
+    //   }
+    //   this.displayName = user.displayName;      
+    // });
   }
 
   doLogin() {
@@ -39,7 +48,7 @@ export class Auth {
   }
 
   fireBaseLogin() {
-    return this.af.auth.login(new firebase.auth.GoogleAuthProvider()).then(a => {
+    return this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(a => {
       this.userProfile = a.auth as any;
       this.loggedIn = true;
     }).catch(error => {
@@ -47,7 +56,7 @@ export class Auth {
   }
 
   doLogout() {
-    this.af.auth.logout().then(reason => {}).catch(error => {});
+    this.af.auth.signOut().then(reason => {}).catch(error => {});
     this.loggedIn = false;
     this.userProfile = null;
   }
