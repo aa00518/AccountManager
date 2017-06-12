@@ -18,7 +18,7 @@ export class TransactionsPopoverMenuPage {
 
   constructor(public viewCtrl: ViewController, public accountsPrvdr: Accounts, public alertCtrl: AlertController, public toastCtrl: ToastController,
               public appCtrl: App) {
-    //this.accountName = this.accountsPrvdr.getCurrentAccount().accountName;
+    this.accountName = this.accountsPrvdr.getCurrentAccount().accountName;
   }
 
   close() {

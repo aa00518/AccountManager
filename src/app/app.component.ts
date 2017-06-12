@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar, Splashscreen } from 'ionic-native';
 import { TransactionsPage } from '../pages/transactions/transactions';
 import { SettingsPage } from '../pages/settings/settings';
 import { AddAccountPage } from '../pages/addaccount/addaccount';
@@ -15,14 +14,14 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage: any;
 
-  constructor(public platform: Platform, public accountsPrvdr: Accounts, public auth: Auth, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public accountsPrvdr: Accounts, public auth: Auth) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      StatusBar.styleDefault();
+      Splashscreen.hide();
       this.openPage(null);
     });
   }

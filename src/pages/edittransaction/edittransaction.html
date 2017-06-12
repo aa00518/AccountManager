@@ -3,12 +3,34 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Edit Transaction</ion-title>
+    <ion-title>{{ pageUsage }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content style="background-color:#404040;color:white;">
   <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
+    You navigated here from <b>{{ selectedItem.title }}</b>
   </div>
+  <ion-card>
+    <ion-card-header>
+      {{ pageUsage }}
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-input #txtAccount [(ngModel)]="account" type="text" placeholder="Account"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="activity" type="text" placeholder="Activity"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="amount" type="text" placeholder="Amount"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="date" type="text" placeholder="Date"></ion-input>
+      </ion-item>
+      <p>
+        <button ion-button block (click)="doTransaction()">{{ pageUsage }}</button>
+      </p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

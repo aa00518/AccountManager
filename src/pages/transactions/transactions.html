@@ -32,9 +32,9 @@
   <ion-list *ngIf="auth.loggedIn && transactionsPrvdr.transactions">
     <button *ngFor="let tx of transactionsPrvdr.transactions" style="background-color:#404040;color:white;" ion-item (click)="itemTapped($event, tx)">
       <ion-icon name="pricetags" item-left></ion-icon>
-      {{ tx.activity }}
+      {{ tx.currentAccountKey }}
       <div style="font-size:smaller;" class="item-note" item-right>
-        ${{ tx.amount | number:0 }}<br />{{ tx.transactionDate | date: 'MM/dd/yyyy H:mm' }}
+        {{ tx.activity }} {{ tx.amount }} {{ tx.transactionDate }}
       </div>
     </button>
   </ion-list>
@@ -47,4 +47,7 @@
       </div>
     </button>
   </ion-list>
+  <ion-fab bottom right>
+    <button ion-fab color="primary" (click)="addTransaction()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>

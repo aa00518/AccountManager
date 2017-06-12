@@ -36,6 +36,10 @@ export class TransactionsPage {
     }
   }
 
+  addTransaction() {
+    this.navCtrl.push(EditTransactionPage, { item: null });
+  }
+
   presentPopover(myEvent) {
     let popover = this.popoverCtrl.create(TransactionsPopoverMenuPage);
     popover.present({
@@ -59,40 +63,25 @@ export class TransactionsPage {
   }
 
   doSilentLogin() {
-<<<<<<< HEAD
-    // this.presentLoading();
-    // this.auth.af.auth.subscribe(res => {
-    //   if(res) {
-    //     this.auth.userProfile = res.auth as any;
-    //     this.auth.loggedIn = true;
-    //     this.accountsPrvdr.getAccounts();
-    //     //this.transactionsPrvdr.getTransactions(this.accountsPrvdr.currentAccountKey);
-    //   }
-    //   else {
-    //   }
-    //   this.dismissLoading();
-    // });
-=======
     this.presentLoading();
     this.auth.af.auth.subscribe(res => {
       if(res) {
         this.auth.userProfile = res.auth as any;
         this.auth.loggedIn = true;
         this.accountsPrvdr.getAccounts();
-        this.transactionsPrvdr.getTransactions(this.accountsPrvdr.currentAccountKey);
+        //this.transactionsPrvdr.getTransactions(this.accountsPrvdr.currentAccountKey);
       }
       else {
       }
       this.dismissLoading();
     });
->>>>>>> parent of ace86e7... More new stuff.
   }
 
   doLogin() {
     this.presentLoading();
     this.auth.doLogin().then(() => {
       this.accountsPrvdr.getAccounts();
-      this.transactionsPrvdr.getTransactions(this.accountsPrvdr.currentAccountKey);
+      //this.transactionsPrvdr.getTransactions(this.accountsPrvdr.currentAccountKey);
       this.dismissLoading();
     }).catch(error => {
       this.dismissLoading();

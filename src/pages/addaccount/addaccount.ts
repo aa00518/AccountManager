@@ -19,7 +19,7 @@ export class AddAccountPage {
       this.pageUsage = "Add Account";
     } else {
       this.pageUsage = "Change Account Name";
-      //this.oldAccountName = this.accountsPrvdr.getCurrentAccount().accountName;
+      this.oldAccountName = this.accountsPrvdr.getCurrentAccount().accountName;
       this.account = this.oldAccountName;
     }
   }

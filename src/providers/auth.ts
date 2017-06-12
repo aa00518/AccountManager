@@ -1,29 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import { Platform } from 'ionic-angular';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { GooglePlus } from '@ionic-native/google-plus';
-import * as firebase from 'firebase/app';
+import { AngularFire, FirebaseAuthState, AuthProviders } from 'angularfire2';
+import { GooglePlus } from 'ionic-native';
+import firebase from 'firebase';
 import 'rxjs/add/operator/map';
-
-// https://github.com/angular/angularfire2/blob/master/docs/5-user-authentication.md
 
 @Injectable()
 export class Auth {
   loggedIn: boolean;
-  userProfile: Observable<firebase.User>;
+  userProfile: FirebaseAuthState = null;
 
-  constructor(public http: Http, public af: AngularFireAuth, public platform: Platform, private googlePlus: GooglePlus) {
+  constructor(public http: Http, public af: AngularFire, public platform: Platform) {
     this.loggedIn = false;
-    this.userProfile = af.authState;
-    // afAuth.authState.subscribe((user: firebase.User) => {
-    //   if (!user) {
-    //     this.displayName = null;
-    //     return;
-    //   }
-    //   this.displayName = user.displayName;      
-    // });
+    this.userProfile = null;
   }
 
   doLogin() {
@@ -35,8 +25,19 @@ export class Auth {
     }
   }
 
+  // doSilentLogin() {
+  //   this.af.auth.subscribe(res => {
+  //     if(res) {
+  //       this.userProfile = res.auth as any;
+  //       this.loggedIn = true;
+  //     }
+  //     else {
+  //     }
+  //   });
+  // }
+
   googlePlusLogin() {
-    return this.googlePlus.login({ 'webClientId' : '658095225206-i1amh87tv7mfjunlk4ifqb3ne2dc2mhr.apps.googleusercontent.com' }).then((userData) => {
+    return GooglePlus.login({ 'webClientId' : '658095225206-i1amh87tv7mfjunlk4ifqb3ne2dc2mhr.apps.googleusercontent.com' }).then((userData) => {
       var provider = firebase.auth.GoogleAuthProvider.credential(userData.idToken);
       firebase.auth().signInWithCredential(provider).then((success) => {
         this.userProfile = success;
@@ -48,7 +49,7 @@ export class Auth {
   }
 
   fireBaseLogin() {
-    return this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(a => {
+    return this.af.auth.login({ provider: AuthProviders.Google }).then(a => {
       this.userProfile = a.auth as any;
       this.loggedIn = true;
     }).catch(error => {
@@ -56,8 +57,21 @@ export class Auth {
   }
 
   doLogout() {
-    this.af.auth.signOut().then(reason => {}).catch(error => {});
+    this.af.auth.logout().then(reason => {}).catch(error => {});
     this.loggedIn = false;
     this.userProfile = null;
   }
+
+  // doLogin() {
+  //   return new Promise((resolve) => {
+  //     setTimeout(() => {
+  //       this.loggedIn = true;
+  //       resolve(this.loggedIn);
+  //     }, 1000);
+  //   });
+  // }
+
+  // doLogout() {
+  //   this.loggedIn = false;
+  // }
 }
