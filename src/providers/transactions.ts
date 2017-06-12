@@ -20,8 +20,6 @@ export class Transactions {
     // () => {});
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   addTransaction(currentAccountKey: string, activity: string) {
   //   this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid + '/' + currentAccountKey).push({
   //     userID: this.auth.userProfile.uid,
@@ -30,10 +28,7 @@ export class Transactions {
   //     amount: 46.20,
   //     transactionDate: Date.now()
   //   });
-=======
-=======
->>>>>>> parent of ace86e7... More new stuff.
-  addTransaction(currentAccountKey: string) {
+  //addTransaction(currentAccountKey: string) {
     this.auth.af.database.list('/Transactions/' + this.auth.userProfile.uid + '/' + currentAccountKey).push({
       userID: this.auth.userProfile.uid,
       currentAccountKey: currentAccountKey,
@@ -41,6 +36,5 @@ export class Transactions {
       amount: 0,
       transactionDate: Date.now()
     });
->>>>>>> parent of ace86e7... More new stuff.
   }
 }
