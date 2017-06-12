@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Auth } from '../providers/auth';
-import { Transactions } from '../providers/transactions';
 import 'rxjs/add/operator/map';
 
 type account = {
@@ -15,7 +14,7 @@ export class Accounts {
   accounts: account[];
   currentAccountKey: string;
 
-  constructor(public http: Http, public auth: Auth, public transactionsPrvdr: Transactions) {
+  constructor(public http: Http, public auth: Auth) {
     this.accounts = null;
     this.currentAccountKey = null;
   }
@@ -27,6 +26,7 @@ export class Accounts {
     // (error) => {},
     // () => {});
 
+<<<<<<< HEAD
     // this.auth.af.database.list('/Accounts/' + this.auth.userProfile.uid, {
     //   query: {
     //     orderByChild: 'addedDate'
@@ -41,6 +41,20 @@ export class Accounts {
     //   },
     //   (error) => {},
     //   () => {});
+=======
+    this.auth.af.database.list('/Accounts/' + this.auth.userProfile.uid, {
+      query: {
+        orderByChild: 'addedDate'
+      }
+    }).subscribe(value => {
+        this.accounts = value as account[];
+        if (this.accounts.length == 0) {
+          this.initDB();
+        }
+      },
+      (error) => {},
+      () => {});
+>>>>>>> parent of ace86e7... More new stuff.
   }
 
   initCurrentAccount(currentAccountKey: string) {
