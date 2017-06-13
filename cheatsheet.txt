@@ -1,8 +1,15 @@
 ionic serve -w chrome --lab
 
-ionic build android
-ionic run android --prod
+cordova run android
+
+cordova run android --release
+
+--ionic build android
+--ionic run android --prod
 
 ionic g page pageName
 
 ionic g provider providerName
+
+// ToDo:
+// Firabase stuff not working on Android in release mode.  Something to do with backend release key??
